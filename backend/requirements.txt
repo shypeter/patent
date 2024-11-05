@@ -2,4 +2,4 @@ Flask
 psycopg2-binary
 Flask-SQLAlchemy
 Flask-CORS
-Flask-Migrate
+openai

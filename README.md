@@ -8,7 +8,7 @@ docker-compose build
 docker-compose up -d
 ```
 
-## parse data to postgres
+## parse json data to postgres
 ```
 docker exec -it flaskapp python import_data.py
 ```

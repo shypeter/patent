@@ -13,7 +13,7 @@ def parse_data(date_str):
         return None
     
 def import_patents(file_path):
-    print("in patents")
+    print("start import patents")
     with open(file_path, 'r', encoding='utf-8') as file:
         parents_data = json.load(file)
 
@@ -43,7 +43,7 @@ def import_patents(file_path):
 
 
 def import_companies(file_path):
-    print("in companies")
+    print("start import companies")
     with open(file_path, 'r', encoding='utf-8') as file:
         companies_data = json.load(file)
 
@@ -65,7 +65,6 @@ if __name__ == '__main__':
     app = create_app()
     with app.app_context():
         db.create_all()
-        print("start")
         import_patents('patents.json')
         import_companies('company_products.json')
         sys.exit(0)
