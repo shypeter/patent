@@ -46,6 +46,7 @@ class Report(db.Model):
     company_name = db.Column(db.String(200), nullable=False, index=True)
     analysis_data = db.Column(JSONB)
     created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     # 使用 Index 創建聯合唯一索引
     __table_args__ = (

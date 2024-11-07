@@ -40,7 +40,9 @@ def create_tables(conn):
                 grant_date DATE,
                 claims TEXT,
                 jurisdictions VARCHAR(100),
-                classifications TEXT
+                classifications TEXT,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
         """)
         
@@ -49,7 +51,9 @@ def create_tables(conn):
             CREATE TABLE IF NOT EXISTS companies (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(200) UNIQUE NOT NULL,
-                products JSONB
+                products JSONB,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
         """)
 
@@ -60,7 +64,8 @@ def create_tables(conn):
                 patent_publication_number VARCHAR(50) NOT NULL,
                 company_name VARCHAR(200) NOT NULL,
                 analysis_data JSONB,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
         """)
 

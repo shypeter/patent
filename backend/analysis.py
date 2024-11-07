@@ -127,24 +127,14 @@ class PatentAnalyzer:
                         product_description: str) -> InfringingProduct:
         """分析單個產品的侵權情況"""
         # 1. 找出相關的權利要求
-
-        self.logger.info(f"fox")
         relevant_claims = self._get_relevant_claims(patent, product_description)
         # 2. 判斷親權程度
-
-        self.logger.info(f"fox1")
         infringement_likelihood = self._analyze_infringement_level(len(relevant_claims))
         # 3. 生成解釋說明
-
-        self.logger.info(f"fox2")
         explanation = self._generate_explanation(patent, product_name, product_description, relevant_claims)
         # 4. 提取具體特徵
-
-        self.logger.info(f"fox3")
         specific_features = self._extract_specific_features(product_description, patent)
 
-
-        self.logger.info(f"fox4")
         return InfringingProduct(
             product_name=product_name,
             infringement_likelihood=infringement_likelihood,
@@ -165,12 +155,10 @@ class PatentAnalyzer:
 
         # 分析所有產品 
         product_analysis = []
-        product = company.products[0]
-        #for product in company.products:
-        analysis = self.analyze_product(patent, product['name'], product['description'])
-        product_analysis.append(analysis)
-
-        self.logger.info(f"fox5")
+        #product = company.products[0]
+        for product in company.products:
+            analysis = self.analyze_product(patent, product['name'], product['description'])
+            product_analysis.append(analysis)
 
         # 選出侵權可能性最高的兩個產品
         top_products = sorted(
