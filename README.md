@@ -13,6 +13,11 @@ docker-compose up -d
 docker exec -it flaskapp python import_data.py
 ```
 
+# API doc
+```
+swagger.yaml
+```
+
 # Database Schema
 ## Patents Table
 

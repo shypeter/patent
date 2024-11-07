@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: Patent Analysis API
+  description: API for analyzing patent infringement and managing patent data
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+    description: Development server
+
+paths:
+  /test:
+    get:
+      summary: Test server connection
+      description: Simple endpoint to verify the server is running
+      responses:
+        '200':
+          description: Server is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The server is running
+
+  /api/analyze:
+    post:
+      summary: Analyze patent infringement
+      description: Analyzes potential patent infringement for a given patent and company
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - patent_id
+                - company_name
+              properties:
+                patent_id:
+                  type: string
+                  example: US-RE49889-E1
+                company_name:
+                  type: string
+                  example: Walmart Inc.
+      responses:
+        '200':
+          description: Successful analysis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysis_id:
+                    type: string
+                  patent_id:
+                    type: string
+                  company_name:
+                    type: string
+                  analysis_date:
+                    type: string
+                    format: date
+                  top_infringing_products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_name:
+                          type: string
+                        infringement_likelihood:
+                          type: string
+                        relevant_claims:
+                          type: array
+                          items:
+                            type: string
+                        explanation:
+                          type: string
+                        specific_features:
+                          type: array
+                          items:
+                            type: string
+                  overall_risk_assessment:
+                    type: string
+        '400':
+          description: Bad request - missing parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: No report generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/patents:
+    get:
+      summary: Get all patents
+      description: Returns a list of all available patents
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    publication_number:
+                      type: string
+                    title:
+                      type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+
+  /api/companies:
+    get:
+      summary: Get all companies
+      description: Returns a list of all available companies and their products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    products:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          description:
+                            type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+
+  /api/patent/{id}:
+    get:
+      summary: Get patent details
+      description: Returns detailed information about a specific patent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Patent publication number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publication_number:
+                    type: string
+                  title:
+                    type: string
+                  abstract:
+                    type: string
+                  description:
+                    type: string
+                  assignee:
+                    type: string
+                  inventors:
+                    type: string
+                  priority_date:
+                    type: string
+                  application_date:
+                    type: string
+                  grant_date:
+                    type: string
+                  claims:
+                    type: string
+                  jurisdictions:
+                    type: string
+                  classifications:
+                    type: string
+        '404':
+          description: Patent not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
