@@ -1,4 +1,4 @@
-flask + nextjs + docker
+flask + nextjs + postgres + docker
 ##
 put company_products.json and patents.json to `backend` folder.
 
