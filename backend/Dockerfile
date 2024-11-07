@@ -6,6 +6,8 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
+RUN pip install --upgrade openai
+
 COPY . .
 
 EXPOSE 4000

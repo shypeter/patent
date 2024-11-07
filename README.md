@@ -2,7 +2,7 @@ flask + nextjs + docker
 ##
 put company_products.json and patents.json to `backend` folder.
 
-## container
+## install
 ```
 docker-compose build
 docker-compose up -d
