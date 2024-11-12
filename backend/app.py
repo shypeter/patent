@@ -64,15 +64,16 @@ def analyze_patent():
         patent_id = data.get('patent_id')
         company_name = data.get('company_name')
 
+        if not patent_id or not company_name:
+            logger.warning("Missing required parameters")
+            return make_response(jsonify({
+                'message': 'Missing required parameters'
+            }), 400)
+
         logger.debug(f"Received request - patent_id: {patent_id}, company_name: {company_name}")
 
         reportRecord = Report.query.filter_by(patent_publication_number=patent_id,company_name=company_name).first()
         if not reportRecord:
-            if not patent_id or not company_name:
-                logger.warning("Missing required parameters")
-                return make_response(jsonify({
-                    'message': 'Missing required parameters'
-                }), 400)
 
             logger.debug("Calling analyzer.generate_infringement_report")
             report = analyzer.generate_infringement_report(
